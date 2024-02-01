@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "name": "Daahir Abdi",
+      "age": 24,
+      "id": 1
+    },
+    {
+      "name": "Daahir Abdi",
+      "age": 24,
+      "id": 2
+    }
+  ]
+}
