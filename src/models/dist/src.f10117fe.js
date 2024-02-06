@@ -117,70 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/views/UserForm.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.UserForm = void 0;
-var UserForm = /** @class */function () {
-  function UserForm(parent, model) {
-    var _this = this;
-    this.parent = parent;
-    this.model = model;
-    this.onSetAgeClick = function () {
-      _this.model.setRandomAge();
-    };
-    this.onSetNameClick = function () {
-      var input = _this.parent.querySelector('input');
-      var name = input.value;
-      _this.model.set({
-        name: name
-      });
-    };
-    this.bindModel();
-  }
-  UserForm.prototype.bindModel = function () {
-    var _this = this;
-    this.model.on('change', function () {
-      _this.render();
-    });
-  };
-  UserForm.prototype.eventsMap = function () {
-    return {
-      'click:.set-age': this.onSetAgeClick,
-      'click:.set-name': this.onSetNameClick
-    };
-  };
-  UserForm.prototype.bindEvents = function (fragment) {
-    var eventsMap = this.eventsMap();
-    var _loop_1 = function _loop_1(eventKey) {
-      var _a = eventKey.split(':'),
-        eventName = _a[0],
-        selectory = _a[1];
-      fragment.querySelectorAll(selectory).forEach(function (element) {
-        element.addEventListener(eventName, eventsMap[eventKey]);
-      });
-    };
-    for (var eventKey in eventsMap) {
-      _loop_1(eventKey);
-    }
-  };
-  UserForm.prototype.template = function () {
-    return "\n    <div>\n      <h1>User Form</h1>\n      <div>User name: ".concat(this.model.get('name'), "</div>\n      <div>User age: ").concat(this.model.get('age'), "</div>\n      <input /><br/>\n      <button>click me</button><br/>\n      <button class=\"set-age\">Set Random Age</button>\n      <button class=\"set-name\">Set Name</button>\n    </div>\n    ");
-  };
-  UserForm.prototype.render = function () {
-    this.parent.innerHTML = '';
-    var templateElement = document.createElement('template');
-    templateElement.innerHTML = this.template();
-    this.bindEvents(templateElement.content);
-    this.parent.append(templateElement.content);
-  };
-  return UserForm;
-}();
-exports.UserForm = UserForm;
-},{}],"src/models/Model.ts":[function(require,module,exports) {
+})({"src/models/Model.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5713,12 +5650,6 @@ var User = /** @class */function (_super) {
       return User.buildUser(json);
     });
   };
-  User.prototype.setRandomAge = function () {
-    var age = Math.round(Math.random() * 100);
-    this.set({
-      age: age
-    });
-  };
   return User;
 }(Model_1.Model);
 exports.User = User;
@@ -5728,15 +5659,13 @@ exports.User = User;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var UserForm_1 = require("./views/UserForm");
 var User_1 = require("./models/User");
-var user = User_1.User.buildUser({
-  name: 'NAME',
-  age: 20
+var collection = User_1.User.buildUserCollection();
+collection.on('change', function () {
+  console.log(collection);
 });
-var userForm = new UserForm_1.UserForm(document.getElementById('root'), user);
-userForm.render();
-},{"./views/UserForm":"src/views/UserForm.ts","./models/User":"src/models/User.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+collection.fetch();
+},{"./models/User":"src/models/User.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5761,7 +5690,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55960" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60083" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

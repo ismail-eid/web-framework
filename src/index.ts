@@ -1,11 +1,11 @@
-import axios from 'axios';
+import { UserForm } from './views/UserForm';
 import { User } from './models/User';
 
-axios.post('http://localhost:3000/users', { name: 'Daahir Abdi', age: 24})
+const user = User.buildUser({ name: 'NAME', age: 20 })
 
-const user = new User({ name: 'Ismail Eid', age: 25 })
-user.on('change', () => {
-  console.log('change event is invoked.')
-})
+const userForm = new UserForm(
+  document.getElementById('root'),
+  user
+)
 
-user.trigger('change')
+userForm.render()
